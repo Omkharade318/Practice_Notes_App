@@ -47,4 +47,25 @@ class DBHelper{
 
   // Queries
 
+  // Insertion
+  Future<bool> addNote({required String mTitle, required String mDesc}) async{
+
+    var db = await getDB();
+
+    int rowsEffected = await db.insert(TABLE_NOTE, {
+      COLUMN_NOTE_TITLE: mTitle,
+      COLUMN_NOTE_DESC: mDesc
+    });
+
+    return rowsEffected > 0;
+  }
+
+  // Reading all Data
+  Future<List<Map<String, dynamic>>> getAllNotes() async{
+
+    var db = await getDB();
+    List<Map<String, dynamic>> mData = await db.query(TABLE_NOTE);  // SELECT * FROM TABLE_NOTE
+
+    return mData;
+  }
 }
